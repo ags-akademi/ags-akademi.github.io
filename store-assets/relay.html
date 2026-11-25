@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>relay</title>
+<script>
+const files = location.hash.slice(1).split(',').filter(Boolean);
+(async () => {
+  for (const f of files) {
+    const blob = await (await fetch(f)).blob();
+    parent.postMessage({ __asc: true, name: f, blob }, 'https://appstoreconnect.apple.com');
+  }
+  parent.postMessage({ __asc: true, done: true }, 'https://appstoreconnect.apple.com');
+})();
+</script>
